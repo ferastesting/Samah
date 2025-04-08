@@ -99,6 +99,22 @@
         ];
         let currentTextIndex = 0;
 
+        function createFloatingEmoji() {
+            const emoji = document.createElement('div');
+            emoji.textContent = Math.random() < 0.5 ? '🖤' : '🥭';
+            emoji.style.position = 'fixed';
+            emoji.style.left = Math.random() * 100 + 'vw';
+            emoji.style.top = '100vh';
+            emoji.style.fontSize = (Math.random() * 20 + 20) + 'px';
+            emoji.style.pointerEvents = 'none';
+            emoji.style.animation = `float ${Math.random() * 2 + 3}s linear`;
+            document.body.appendChild(emoji);
+
+            emoji.addEventListener('animationend', () => {
+                document.body.removeChild(emoji);
+            });
+        }
+
         function moveButton() {
             const noBtn = document.getElementById('noBtn');
             const yesBtn = document.getElementById('yesBtn');
@@ -129,36 +145,59 @@
         }
 
         function accepted() {
-            document.body.style.height = 'auto';
-            document.body.style.minHeight = '100vh';
-            document.body.style.overflow = 'auto'; // Allow scrolling
-            document.body.innerHTML = `
-                <div class="message" style="margin: 40px 20px; padding-bottom: 60px;">
-                    <h1 style="font-size: 1.4em;">Thank you for forgiving me! 🖤</h1>
-                    <img src="us.jpg" alt="Our special moments" style="max-width: 80%; height: auto; border-radius: 10px; margin: 20px 0; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
-                    <p style="font-size: 0.9em;">Your mango promises to do better! 🥭</p>
-                    <p style="font-size: 0.7em;">Every beat of my heart whispers your name, every star in the sky reminds me of your beautiful smile. You're not just my soulmate, you're the missing piece that makes my world complete. I promise to love, cherish, and adore you more with each passing day. You're my dream come true, my forever love, my everything! 🖤✨👩‍❤️‍👨</p>
-                    <a href="https://wa.me/963956980737" style="text-decoration: none; display: block;">
-                        <button style="
-                            margin-top: 30px;
-                            margin-bottom: 40px;
-                            padding: 15px 30px;
-                            font-size: 1em;
-                            background-color: #ffd700;
-                            color: #ff6b00;
-                            border: none;
-                            border-radius: 10px;
-                            cursor: pointer;
-                            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-                            transition: all 0.3s ease;
-                            width: 100%;
-                            max-width: 400px;
-                        ">
-                            Click here to schedule a date with your mango 🥭
-                        </button>
-                    </a>
-                </div>
+            // Add floating animation keyframes
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes float {
+                    from {
+                        transform: translateY(0);
+                        opacity: 1;
+                    }
+                    to {
+                        transform: translateY(-100vh);
+                        opacity: 0;
+                    }
+                }
             `;
+            document.head.appendChild(style);
+
+            // Start creating floating emojis
+            const emojiInterval = setInterval(createFloatingEmoji, 100);
+
+            // After 3 seconds, show the thank you message
+            setTimeout(() => {
+                clearInterval(emojiInterval);
+                document.body.style.height = 'auto';
+                document.body.style.minHeight = '100vh';
+                document.body.style.overflow = 'auto'; // Allow scrolling
+                document.body.innerHTML = `
+                    <div class="message" style="margin: 40px 20px; padding-bottom: 60px;">
+                        <h1 style="font-size: 1.4em;">Thank you for forgiving me! 🖤</h1>
+                        <img src="us.jpg" alt="Our special moments" style="max-width: 80%; height: auto; border-radius: 10px; margin: 20px 0; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+                        <p style="font-size: 0.9em;">Your mango promises to do better! 🥭</p>
+                        <p style="font-size: 0.7em;">Every beat of my heart whispers your name, every star in the sky reminds me of your beautiful smile. You're not just my soulmate, you're the missing piece that makes my world complete. I promise to love, cherish, and adore you more with each passing day. You're my dream come true, my forever love, my everything! 🖤✨👩‍❤️‍👨</p>
+                        <a href="https://wa.me/963956980737" style="text-decoration: none; display: block;">
+                            <button style="
+                                margin-top: 30px;
+                                margin-bottom: 40px;
+                                padding: 15px 30px;
+                                font-size: 1em;
+                                background-color: #ffd700;
+                                color: #ff6b00;
+                                border: none;
+                                border-radius: 10px;
+                                cursor: pointer;
+                                box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+                                transition: all 0.3s ease;
+                                width: 100%;
+                                max-width: 400px;
+                            ">
+                                Click here to schedule a date with your mango 🥭
+                            </button>
+                        </a>
+                    </div>
+                `;
+            }, 3000);
         }
     </script>
 </body>
