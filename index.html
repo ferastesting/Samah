@@ -131,6 +131,11 @@
         }
 
         function moveButton() {
+            gtag('event', 'click_no', {
+  'event_category': 'engagement',
+  'event_label': 'No Button Clicked'
+});
+
             const noBtn = document.getElementById('noBtn');
             const yesBtn = document.getElementById('yesBtn');
             
@@ -158,8 +163,22 @@
             noBtn.style.left = randomX + 'px';
             noBtn.style.top = randomY + 'px';
         }
+        function trackScheduleClick() {
+    gtag('event', 'click_schedule', {
+        'event_category': 'engagement',
+        'event_label': 'Schedule Date Button Clicked'
+    });
+
+    // Optional: local tracking
+    trackClick('scheduleClicks');
+}
 
         function accepted() {
+            gtag('event', 'click_yes', {
+  'event_category': 'engagement',
+  'event_label': 'Yes Button Clicked'
+});
+
             document.body.style.height = 'auto';
             document.body.style.minHeight = '100vh';
             document.body.style.overflow = 'auto'; // Allow scrolling
@@ -170,24 +189,25 @@
                     <p style="font-size: 0.9em;">Your mango promises to do better! 🥭</p>
                     <p style="font-size: 0.7em;">Every beat of my heart whispers your name, every star in the sky reminds me of your beautiful smile. You're not just my soulmate, you're the missing piece that makes my world complete. I promise to love, cherish, and adore you more with each passing day. You're my dream come true, my forever love, my everything! 🖤✨👩‍❤️‍👨</p>
                     <a href="https://wa.me/963956980737" style="text-decoration: none; display: block;">
-                        <button style="
-                            margin-top: 30px;
-                            margin-bottom: 40px;
-                            padding: 15px 30px;
-                            font-size: 1em;
-                            background-color: #ffd700;
-                            color: #ff6b00;
-                            border: none;
-                            border-radius: 10px;
-                            cursor: pointer;
-                            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-                            transition: all 0.3s ease;
-                            width: 100%;
-                            max-width: 400px;
-                        ">
-                            Click here to schedule a date with your mango 🥭
-                        </button>
-                    </a>
+    <button onclick="trackScheduleClick()" style="
+        margin-top: 30px;
+        margin-bottom: 40px;
+        padding: 15px 30px;
+        font-size: 1em;
+        background-color: #ffd700;
+        color: #ff6b00;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        transition: all 0.3s ease;
+        width: 100%;
+        max-width: 400px;
+    ">
+        Click here to schedule a date with your mango 🥭
+    </button>
+</a>
+
                 </div>
             `;
 
